@@ -1,9 +1,9 @@
 
-public class Moto extends Vehiculo {
+public class Moto extends Vehiculo implements MetodoVehiculo {
 	private boolean casco;
 
-	Moto(String nombre, int estadoAceleracion, boolean casco) {
-		super(nombre, estadoAceleracion);
+	Moto(String nombre, int garantia, boolean casco) {
+		super(nombre, garantia);
 		this.casco = casco;
 	}
 
@@ -16,14 +16,14 @@ public class Moto extends Vehiculo {
 	}
 
 	@Override
-	void mostrarInfo() {
-
-		System.out.println(this.toString());
+	public String toString() {
+		return super.toString() + ", Tipo=moto, casco=" + casco + "]";
 	}
 
 	@Override
-	public String toString() {
-		return super.toString() + "Moto [casco=" + casco + "]";
+	public void mostrarInfo() {
+		System.out.println(this.toString());
+		
 	}
 
 }
