@@ -1,9 +1,9 @@
 
-public class Coche extends Vehiculo {
+public class Coche extends Vehiculo implements MetodoVehiculo {
 	private int numeroPuertas;
 
-	Coche(String nombre, int estadoAceleracion, int numeroPuertas) {
-		super(nombre, estadoAceleracion);
+	Coche(String nombre, int garantia, int numeroPuertas) {
+		super(nombre, garantia);
 		this.numeroPuertas = numeroPuertas;
 	}
 
@@ -15,22 +15,15 @@ public class Coche extends Vehiculo {
 		this.numeroPuertas = numeroPuertas;
 	}
 
-	boolean agregarCoche() {
-
-		return false;
-	}
-
-
-
-	@Override
-	void mostrarInfo() {
-		
-		System.out.println(this.toString());
-	}
-
 	@Override
 	public String toString() {
-		return super.toString()+"Coche [numeroPuertas=" + numeroPuertas + "]";
+		return super.toString() + ", Tipo=coche, numeroPuertas=" + numeroPuertas + "]";
+	}
+
+	@Override
+	public void mostrarInfo() {
+		System.out.println(this.toString());
+
 	}
 
 }
