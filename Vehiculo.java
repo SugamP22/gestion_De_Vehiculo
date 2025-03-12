@@ -1,10 +1,10 @@
-  abstract class Vehiculo {
+public abstract class Vehiculo {
 	protected String nombre;
-	protected int estadoAceleracion;
+	protected int garantia;
 
-	Vehiculo(String nombre, int estadoAceleracion) {
+	Vehiculo(String nombre, int garantia) {
 		this.nombre = nombre;
-		setEstadoAceleracion(estadoAceleracion);
+		this.garantia = garantia;
 	}
 
 	public String getNombre() {
@@ -15,29 +15,17 @@
 		this.nombre = nombre;
 	}
 
-	public int getEstadoAceleracion() {
-		return estadoAceleracion;
+	public int getGarantia() {
+		return garantia;
 	}
 
-	public void setEstadoAceleracion(int estadoAceleracion) {
-		if (estadoAceleracion > 200) {
-			this.estadoAceleracion = 200;
-		} else if (estadoAceleracion < 20) {
-			this.estadoAceleracion = 20;
-		} else {
-			this.estadoAceleracion = estadoAceleracion;
-		}
+	public void setGarantia(int garantia) {
+		this.garantia = garantia;
 	}
-	
-	
-
-	
-
-	abstract void mostrarInfo();
 
 	@Override
 	public String toString() {
-		return "Vehiculo [nombre=" + nombre + ", estadoAceleracion=" + estadoAceleracion + "]";
+		return "Vehiculo [nombre=" + nombre + ", garantia=" + garantia ;
 	}
 	
 }
