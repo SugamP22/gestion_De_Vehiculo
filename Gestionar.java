@@ -1,87 +1,86 @@
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GestionarVehiculo {
-	private ArrayList<Vehiculo>vehiculo;
-	private int contadorCOche = 0;
-	private int contadorMoto = 0;
+	private ArrayList<Vehiculo> v1;
+	private int numeroCoche = 0;
+	private int numeroMoto = 0;
 
 	public GestionarVehiculo() {
-		this.vehiculo = new ArrayList<>();
+		this.v1 = new ArrayList<Vehiculo>();
 	}
 
-	
-	public int getContadorCOche() {
-		return contadorCOche;
+	public int getNumeroCoche() {
+		return numeroCoche;
 	}
 
-	public void setContadorCOche(int contadorCOche) {
-		this.contadorCOche = contadorCOche;
+	public void setNumeroCoche(int numeroCoche) {
+		this.numeroCoche = numeroCoche;
 	}
 
-	public int getContadorMoto() {
-		return contadorMoto;
+	public int getNumeroMoto() {
+		return numeroMoto;
 	}
 
-	public void setContadorMoto(int contadorMoto) {
-		this.contadorMoto = contadorMoto;
+	public void setNumeroMoto(int numerMoto) {
+		this.numeroMoto = numerMoto;
 	}
 
-	boolean agregarVehiculo(Vehiculo v) {
+	public void agregarVehiculo(Vehiculo vehiculo) {
+
+		v1.add(vehiculo);
+		if(vehiculo instanceof Coche) {
+			numeroCoche++;
+		}else {
+			numeroMoto++;
+		}
 		
-		return vehiculo.add(v);
+	
+
 	}
 
-	boolean eliminarVehiculo(String nombre) {
-		if(vehiculo.isEmpty()) return false;
-		Iterator<Vehiculo> it = vehiculo.iterator();
-		while (it.hasNext()) {
-			Vehiculo v1 = it.next();
-			if (v1.getNombre().equalsIgnoreCase(nombre)) {
-				if(v1 instanceof Coche) {
-					contadorCOche--;
-				}else {
-					contadorMoto--;
-				}
-				it.remove();
-				return true;
-			}
-		}
-		return false;
-	}
-
-	int ContadorVehiculo() {
-
-		if (vehiculo.isEmpty()) {
-			return 0;
+	public boolean eliminarVehiculo(String nombre) {
+		if (v1.isEmpty()) {
+			return false;
 		} else {
-			for (Vehiculo v : vehiculo) {
-				if (v instanceof Coche) {
-					contadorCOche++;
-				} else {
-					contadorMoto++;
-				}
+			Iterator<Vehiculo> it = v1.iterator();
+			while (it.hasNext()) {
+				Vehiculo vehiculo = it.next();// casting
+				if (vehiculo.getNombre().equalsIgnoreCase(nombre)) {
+					if (vehiculo instanceof Coche) {
+						numeroCoche--;
+					} else {
+						numeroMoto--;
+					}
+					it.remove();
+					return true;
 
+				}
 			}
-			return contadorCOche + contadorMoto;
+			return false;
 		}
 	}
 
-	void mostrarInfo() {
-		if (vehiculo.isEmpty()) {
-			System.out.println("La lista no tiene ningun vehivulo registrado!!");
-			
+	public int numeroTotal() {
+		
+		return numeroCoche + numeroMoto;
+	}
+
+	public void listarVehiculo() {
+		if (v1.isEmpty()) {
+			System.out.println("No hay ningun vehiculo registrado!!");
+
 		} else {
-			for (Vehiculo v : vehiculo) {
-				if (v instanceof Coche) {
-					Coche coche = (Coche) v;
+			for (Vehiculo vehiculo : v1) {
+				if (vehiculo instanceof Coche) {
+					Coche coche = (Coche) vehiculo;// casting subclass para usar su metodo
 					coche.mostrarInfo();
 				} else {
-					Moto moto = (Moto) v;
+					Moto moto = (Moto) vehiculo;
 					moto.mostrarInfo();
 				}
 			}
 		}
 	}
-
 }
