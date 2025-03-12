@@ -1,82 +1,74 @@
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-	public static Scanner sc = new Scanner(System.in);
-	public static Scanner sl = new Scanner(System.in);
-	private static GestionarVehiculo gestionar = new GestionarVehiculo();
-	private static Vehiculo v1;
+	private static Scanner sc = new Scanner(System.in);// para numeros
+	private static Scanner sl = new Scanner(System.in);// para letras
+	private static GestionarVehiculo gestion = new GestionarVehiculo();
 
 	public static void main(String[] args) {
 		int opcion = 0;
 		do {
 			menu();
+
 			try {
 				opcion = sc.nextInt();
 				switchMain(opcion);
-			} catch (InputMismatchException e) {
-				System.out.println("🚩🚩  Entrada Invalida Ingresa numero!!  🚩🚩");
+			} catch (Exception e) {
+				System.out.println("!! Entrada Invalido😒😒😒😒 !!");
 				sc.next();
 			}
 		} while (opcion != 5);
-		System.out.println("😊😊Gracias por su participcion....😊😊");
+		System.out.println("Gracias Por su Participación!!");
 	}
 
 	private static void switchMain(int opcion) {
 		switch (opcion) {
 		case 1:
-			System.out.println("||  Agregar Vehiculo   ||");
+			System.out.println("|*|  Agregar Vehiculo  |*|");
 			agregarVehiculo();
 			break;
 		case 2:
-			System.out.println("||  Eliminar Vehiculo  ||");
-			eliminarVehiculo();
-
+			System.out.println("|*|  Eliminar Vehiculo  |*|");
+			emiminarVehiculo();
 			break;
 		case 3:
-			System.out.println("||  Mostrar estadísticas(NumerosDEVehiculo)  ||");
-			numeroTotal();
+			System.out.println("|*|  Total numero de Vehiculo  |*|");
+			calcularNumero();
 			break;
 		case 4:
-			System.out.println("||  listar Vehiculos ||");
-			mostrarinfoVehiculo();
+			System.out.println("|*|  listar Vehiculo  |*|");
+			ListarVehiculo();
 			break;
 		case 5:
-			System.out.println("Saliendo....");
+			System.out.println("|*|  Saliendo....  |*|");
 			break;
 		default:
-			System.out.println("!!  Ingresa un numero entre 1 y 5  !!");
+			System.out.println("|*| Ingresa un numero entre(1-5) S|*|");
 			break;
 		}
 
 	}
 
-	private static void mostrarinfoVehiculo() {
-		gestionar.mostrarInfo();
-			
-		
+	private static void ListarVehiculo() {
+		gestion.listarVehiculo();
 	}
 
-	private static void numeroTotal() {
-		if (gestionar.ContadorVehiculo() == 0) {
-			System.out.println("La lista no tiene ningun vehivulo rehistrado!!");
-
-		} else {
-			System.out.printf("Numero Total de Vehiculo es %d",
-					gestionar.getContadorCOche() + gestionar.getContadorMoto());
-			System.out.printf("Numero Total de Coche es %d", gestionar.getContadorCOche());
-			System.out.printf("Numero Total de Moto es %d", gestionar.getContadorMoto());
-		}
+	private static void calcularNumero() {
+		System.out.printf("Numero Vehiculo Total: %d\n", gestion.numeroTotal());
+		System.out.printf("Numero Coche Registrado: %d\n", gestion.getNumeroCoche());
+		System.out.printf("Numero Moto Registrado: %d\n", gestion.getNumeroMoto());		
 
 	}
 
-	private static void eliminarVehiculo() {
+	private static void emiminarVehiculo() {
 		System.out.print("Introduce un nombre:");
 		String nombre = sl.nextLine();
-		if (gestionar.eliminarVehiculo(nombre)) {
-			System.out.println("!! Vehiculo eliminado con exito !!");
+		if (gestion.eliminarVehiculo(nombre)) {
+			System.out.println("!!  Eliminado con exito😊😊  !!");
 		} else {
-			System.out.println("!! Nombre no coincide coon ningun Vehiculo !!");
+			System.out.println("!! El nombre noo coincide con ninguno Vehiculo registrado !!");
 		}
 
 	}
@@ -84,64 +76,56 @@ public class Main {
 	private static void agregarVehiculo() {
 		boolean flag = false;
 		while (!flag) {
-			System.out.println("Introduce un nombre del Vehiculo");
-			String nombre = sl.nextLine();
-			System.out.println("Introduce el Velocidad Actual");
-			int velocidad = sc.nextInt();
-			System.out.println("QUe tipo de Vehiculo quieres introducir:");
-			System.out.println("1. Coche");
-			System.out.println("2. Moto");
-			System.out.print(">>>>>>>>>>");
+			menu2();
 			try {
 				int opcion = sc.nextInt();
-				System.out.println("=======================");
 				if (opcion < 1 || opcion > 2) {
-					throw new IllegalArgumentException("Ingresa un numero entre 1 y 2");
-				} else {
-					if (opcion == 1) {
-						System.out.println("Introduce el numero de puertas:");
-						int puertas = sc.nextInt();
-						v1 = new Coche(nombre, velocidad, puertas);
-						if (gestionar.agregarVehiculo(v1)) {
-							System.out.println("!! Vehiculo agregado con exito !!");
-						} else {
-							System.out.println("Tuvo un problema al hora del agregar Vehiculo");
-						}
-						flag = true;
-
-					} else {
-						System.out.println("¿Tienes casco(Sí/NO)?");
-						boolean casco = sl.next().equalsIgnoreCase("Sí");
-						v1 = new Moto(nombre, velocidad, casco);
-						if (gestionar.agregarVehiculo(v1)) {
-							System.out.println("!! Vehiculo agregado con exito !!");
-						} else {
-							System.out.println("Tuvo un problema al hora del agregar Vehiculo");
-						}
-						flag = true;
-
-					}
+					throw new IllegalArgumentException("😍😍 Ingresa un numero entres  [1 y 2] 😍😍");
 				}
+				System.out.println("Introduce un nombre vehiculo:");
+				String nombre = sl.nextLine();
+				System.out.println("Introduce el año de garantía:");
+				int garantia = sc.nextInt();
 
+				if (opcion == 1) {
+					System.out.println("Ingresa el numero Puerta que tiene tu coche:");
+					int puertas = sc.nextInt();
+					gestion.agregarVehiculo(new Coche(nombre, garantia, puertas));
+					flag = true;
+
+				} else {
+					System.out.println("¿Tienes Casco contigo(Sí/NO)?");
+					boolean casco = sc.next().equalsIgnoreCase("Sí");
+					gestion.agregarVehiculo(new Moto(nombre, garantia, casco));
+					flag = true;
+				}
 			} catch (InputMismatchException e) {
-				System.out.println("Entrada invalido");
+				System.out.println("!! Entrada Invalido !!");
 				sc.next();
 			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}
 
 		}
+		System.out.println("Vehiculo añadido con exito!!");
 
 	}
 
+	private static void menu2() {
+		System.out.println("|| Elige uno tipo de Vehiculo ||");
+		System.out.println("1. Coche");
+		System.out.println("2. Moto");
+		System.out.print(">>>>>>>>>");
+	}
+
 	private static void menu() {
-		System.out.println("::::: Menú Principal :::::");
-		System.out.println("******************************");
-		System.out.println("1. Agregar Vehiculo ");
+		System.out.println(":::: Menú Pricipal :::::");
+		System.out.println("1. Agregar Vehiculo");
 		System.out.println("2. Eliminar Vehiculo");
-		System.out.println("3. Mostrar estadísticas(NumerosDEVehiculo)");
-		System.out.println("4. listar Vehiculos");
-		System.out.println("5. Salir ");
-		System.out.print(">>>>>>>>>>");
+		System.out.println("3. Calcular NumeroTotal");
+		System.out.println("4. Listar Vehiculo");
+		System.out.println("5. Salir");
+		System.out.print(">>>>>>>>>>>>>");
+
 	}
 }
